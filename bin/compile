@@ -15,6 +15,8 @@ BIN_DIR=$HEROKU_DIR/bin
 cp -rpT $BUILD_DIR $HOME
 cd $HOME
 
+ls -al $CACHE_DIR
+
 # install bun
 export BUN_INSTALL=$BUILD_DIR/.heroku
 export BUN_DIR=$BUILD_DIR/.heroku/cache
@@ -30,17 +32,4 @@ echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
 set +e
 
 # download dependencies
-if [ -f Procfile ]
-then
-  SCRIPT_DIR=$(cd $(dirname $0); pwd)
-  source $SCRIPT_DIR/get_cache_command.sh
-  COMMAND=$(cat Procfile | grep -E '^(web|worker):')
-  if [ -n "$COMMAND" ]
-  then
-    CACHE_COMMAND=$(get_cache_command "$COMMAND")
-    if [ -n "$CACHE_COMMAND" ]
-    then
-      $BIN_DIR/$CACHE_COMMAND
-    fi
-  fi
-fi
+$BUN_DIR/bun install
