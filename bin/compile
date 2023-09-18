@@ -56,4 +56,5 @@ echo "BUN_INSTALL:"
 ls -al $BUILD_DIR/.heroku
 
 echo "VITE:"
-ls -al $BUILD_DIR/node_modules/.bin/vite
+ls -al $BUILD_DIR/node_modules/
+ls -al $BUILD_DIR/node_modules/.bin
