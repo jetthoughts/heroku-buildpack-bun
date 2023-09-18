@@ -19,14 +19,15 @@ ls -al $CACHE_DIR
 
 # install bun
 export BUN_INSTALL=$HEROKU_DIR/bun
-export BUN_DIR=$BIN_DIR
+export BUN_DIR=$BUN_INSTALL/bin
 # NOTE: For now support latest version only
 curl -fsSL https://bun.sh/install | bash
 
 # set environment variables
 PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$HOME/.heroku/bun/bin:$PATH"' >> $PROFILE_PATH
+echo 'export BUN_INSTALL="$HOME/.heroku/bun"' >> $PROFILE_PATH
+echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> $PROFILE_PATH
 echo 'export PATH="./node_modules/.bin:$PATH"' >> $PROFILE_PATH
 echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> $PROFILE_PATH
 echo 'export VITE_RUBY_VITE_BIN_PATH="$HOME/node_modules/.bin/vite"' >> $PROFILE_PATH
