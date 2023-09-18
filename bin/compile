@@ -2,7 +2,8 @@
 # bin/compile <build-dir> <cache-dir> <env-dir>
 # $HOME: /app
 
-set -e
+# fail fast
+set -eo pipefail
 
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}
@@ -43,8 +44,6 @@ echo <<EOT >> $HOME/.bunfig.toml
 # the directory to use for the cache
 dir = "$CACHE_DIR/.bun/install/cache"
 EOT
-
-set +e
 
 # download dependencies
 $BUN_DIR/bun install
