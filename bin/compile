@@ -31,6 +31,8 @@ echo 'export PATH="./node_modules/.bin:$PATH"' >> $PROFILE_PATH
 echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> $PROFILE_PATH
 echo 'export VITE_RUBY_VITE_BIN_PATH="$HOME/node_modules/.bin/vite"' >> $PROFILE_PATH
 
+export VITE_RUBY_VITE_BIN_PATH="$BUILD_DIR/node_modules/.bin/vite"
+
 echo 'export BUN_DIR="$HOME/.heroku/bin"' >> $PROFILE_PATH
 
 mkdir -p $CACHE_DIR/.bun/install/cache
@@ -40,8 +42,6 @@ echo <<EOT >> $HOME/.bunfig.toml
 # the directory to use for the cache
 dir = "$CACHE_DIR/.bun/install/cache"
 EOT
-
-export $PATH="$BUN_DIR:$PATH"
 
 set +e
 
