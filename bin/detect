@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-exit 0
+if [ -f $1/bun.lockb ]; then
+  echo "Bun!"
+  exit 0
+else
+  exit 1
+fi
