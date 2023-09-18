@@ -46,10 +46,13 @@ dir = "$CACHE_DIR/.bun/install/cache"
 EOT
 
 # download dependencies
+pwd
+cd $BUILD_DIR
 $BUN_DIR/bun install
 
 echo "CACHE_DIR:"
 ls -al $CACHE_DIR
+ls -al $CACHE_DIR/.bun/
 echo "BUN_DIR:"
 ls -al $BUN_DIR
 echo "HEROKU_DIR:"
