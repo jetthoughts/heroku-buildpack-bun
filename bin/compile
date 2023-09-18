@@ -54,17 +54,14 @@ export PATH="$BUN_DIR:$PATH"
 cd $BUILD_DIR
 bun install
 
+echo "Debug -> cache dir:"
 ls -al $CACHE_DIR/.bun/install/cache
-which bun
-ls $ENV_DIR
-
-env
-
 
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
 
 #give environment to later buildpacks
 export | grep -E -e ' (PATH)='  > "$LP_DIR/export"
 
+echo "Debug -> shared env:"
 cat "$LP_DIR/export"
 echo 'Done'
