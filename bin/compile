@@ -27,6 +27,10 @@ curl -fsSL https://bun.sh/install | bash
 PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$HOME/.heroku/bin:$PATH"' >> $PROFILE_PATH
+echo 'export PATH="./node_modules/.bin:$PATH"' >> $PROFILE_PATH
+echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> $PROFILE_PATH
+echo 'export VITE_RUBY_VITE_BIN_PATH="$HOME/node_modules/.bin/vite"' >> $PROFILE_PATH
+
 echo 'export BUN_DIR="$HOME/.heroku/bin"' >> $PROFILE_PATH
 
 mkdir -p $CACHE_DIR/.bun/install/cache
@@ -50,3 +54,6 @@ echo "BUN_DIR:"
 ls -al $BUN_DIR
 echo "BUN_INSTALL:"
 ls -al $BUILD_DIR/.heroku
+
+echo "VITE:"
+ls -al $BUILD_DIR/node_modules/.bin/vite
