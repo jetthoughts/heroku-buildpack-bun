@@ -60,3 +60,9 @@ ls $ENV_DIR
 
 env
 echo 'Done'
+
+
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+
+#give environment to later buildpacks
+export | grep -E -e ' (PATH)='  > "$LP_DIR/export"
