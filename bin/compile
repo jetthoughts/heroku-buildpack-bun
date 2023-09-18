@@ -19,7 +19,7 @@ ls -al $CACHE_DIR
 
 # install bun
 export BUN_INSTALL=$BUILD_DIR/.heroku
-export BUN_DIR=$BUILD_DIR/.heroku/cache
+export BUN_DIR=$BUILD_DIR/.heroku/bin
 # NOTE: For now support latest version only
 curl -fsSL https://bun.sh/install | bash
 
@@ -27,9 +27,11 @@ curl -fsSL https://bun.sh/install | bash
 PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$HOME/.heroku/bin:$PATH"' >> $PROFILE_PATH
-echo 'export BUN_DIR="$HOME/.heroku/cache"' >> $PROFILE_PATH
+echo 'export BUN_DIR="$HOME/.heroku/bin"' >> $PROFILE_PATH
 
 set +e
 
 # download dependencies
 $BUN_DIR/bun install
+
+ls -al $CACHE_DIR
