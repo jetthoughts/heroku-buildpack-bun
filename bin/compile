@@ -3,7 +3,7 @@
 # $HOME: /app
 
 # fail fast
-set -eo pipefail
+set -eu -o pipefail
 
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}
@@ -57,3 +57,6 @@ bun install
 ls -al $CACHE_DIR/.bun/install/cache
 which bun
 ls $ENV_DIR
+
+env
+echo 'Done'
