@@ -34,4 +34,9 @@ set +e
 # download dependencies
 $BUN_DIR/bun install
 
+echo "CACHE_DIR:"
 ls -al $CACHE_DIR
+echo "BUN_DIR:"
+ls -al $BUN_DIR
+echo "BUN_INSTALL:"
+ls -al $BUILD_DIR/.heroku
