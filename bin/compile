@@ -5,24 +5,19 @@
 # fail fast
 set -eu -o pipefail
 
-echo '----------------------------------------'
-echo '----------------------------------------'
-
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}
-ENV_DIR=${3:-}
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
-
-echo "Cache Dir:"
-ls -al $CACHE_DIR
 
 # Install bun
 export BUN_INSTALL=$CACHE_DIR/bun
 mkdir -p $CACHE_DIR/bun/install/cache
 
+ls -al $CACHE_DIR/
+ls -al $CACHE_DIR/bun/install/cache
 
 if [ -f "$BUN_INSTALL"/bin/bun ]; then
-  echo "Bun already installed"
+  echo "------> Bun $(bun --version) is already installed"
 else
   # NOTE: For now support latest version only
   curl -fsSL https://bun.sh/install | bash
@@ -30,22 +25,11 @@ fi
 
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# set environment variables
-PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
-mkdir -p "$BUILD_DIR"/.profile.d
-
-echo "export BUN_INSTALL=\$HOME/bun" >> $PROFILE_PATH
-echo "export PATH=\$BUN_INSTALL/bin:$PATH" >> $PROFILE_PATH
-echo "bun --version" >> $PROFILE_PATH
-
-
 cat <<EOT > "$BUILD_DIR"/.bunfig.toml
 [install.cache]
 # the directory to use for the cache
 dir = "$CACHE_DIR/.bun/install/cache"
 EOT
-
-cat "$BUILD_DIR"/.bunfig.toml
 
 bun --version
 
@@ -53,16 +37,8 @@ bun --version
 cd "$BUILD_DIR"
 bun install
 
-# debug cached dependencies
-
-echo "Debug -> bun/install/cache:"
-ls -al $CACHE_DIR/bun/install/cache
-
-
 # give environment to later buildpacks
 export | grep -E -e ' (PATH)='  > "$LP_DIR/export"
 
 echo "Debug -> shared env:"
 cat "$LP_DIR/export"
-echo '----------------------------------------'
-echo '----------------------------------------'
