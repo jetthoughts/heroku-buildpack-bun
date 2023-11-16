@@ -26,8 +26,6 @@ cat <<EOT > "$BUILD_DIR"/.bunfig.toml
 dir = "$CACHE_DIR/bun/install/cache"
 EOT
 
-bun --version
-
 # download dependencies
 cd "$BUILD_DIR"
 bun install
