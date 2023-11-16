@@ -7,7 +7,11 @@ set -eu -o pipefail
 
 BUILD_DIR=${1:-.}
 CACHE_DIR=${2:-}
-LP_DIR=`cd $(dirname $0); cd ..; pwd`
+LP_DIR=$(
+  cd "$(dirname "$0")"
+  cd ..
+  pwd
+)
 
 # Install bun
 export BUN_INSTALL=$CACHE_DIR/bun
@@ -20,7 +24,7 @@ else
   curl -fsSL https://bun.sh/install | bash
 fi
 
-cat <<EOT > "$BUILD_DIR"/.bunfig.toml
+cat <<EOT >"$BUILD_DIR"/.bunfig.toml
 [install.cache]
 # the directory to use for the cache
 dir = "$CACHE_DIR/bun/install/cache"
@@ -31,4 +35,4 @@ cd "$BUILD_DIR"
 bun install
 
 # give environment to later buildpacks
-export | grep -E -e ' (PATH)='  > "$LP_DIR/export"
+export | grep -E -e ' (PATH)=' >"$LP_DIR/export"
