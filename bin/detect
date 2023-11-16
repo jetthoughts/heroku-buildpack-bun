@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -f $1/bun.lockb ]; then
+if [ -f "$1"/bun.lockb ]; then
   echo "Bun!"
   exit 0
 else
