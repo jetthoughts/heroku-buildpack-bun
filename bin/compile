@@ -11,10 +11,7 @@ LP_DIR=`cd $(dirname $0); cd ..; pwd`
 
 # Install bun
 export BUN_INSTALL=$CACHE_DIR/bun
-mkdir -p $CACHE_DIR/bun/install/cache
-
-ls -al $CACHE_DIR/
-ls -al $CACHE_DIR/bun/install/cache
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 if [ -f "$BUN_INSTALL"/bin/bun ]; then
   echo "------> Bun $(bun --version) is already installed"
@@ -23,12 +20,10 @@ else
   curl -fsSL https://bun.sh/install | bash
 fi
 
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 cat <<EOT > "$BUILD_DIR"/.bunfig.toml
 [install.cache]
 # the directory to use for the cache
-dir = "$CACHE_DIR/.bun/install/cache"
+dir = "$CACHE_DIR/bun/install/cache"
 EOT
 
 bun --version
@@ -39,6 +34,3 @@ bun install
 
 # give environment to later buildpacks
 export | grep -E -e ' (PATH)='  > "$LP_DIR/export"
-
-echo "Debug -> shared env:"
-cat "$LP_DIR/export"
