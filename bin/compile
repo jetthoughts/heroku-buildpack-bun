@@ -17,14 +17,6 @@ LP_DIR=$(
 export BUN_INSTALL=$CACHE_DIR/bun
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-BUN_VERSION="canary"
-
-if [ -f "$BUILD_DIR"/.bun-version ]; then
-  BUN_VERSION=$(cat "$BUILD_DIR"/.bun-version)
-fi
-
-echo "Bun version to Install: $BUN_VERSION"
-
 if [ -f "$BUN_INSTALL"/bin/bun ]; then
   echo "------> Bun $(bun --version) is already installed"
 else
@@ -34,6 +26,7 @@ else
     BUN_VERSION=$(cat "$BUILD_DIR"/.bun-version)
   fi
 
+  echo "------> Bun Version to install: $BUN_VERSION"
 
   # NOTE: For now support latest version only
   curl -fsSL https://bun.sh/install | bash -s "$BUN_VERSION"
