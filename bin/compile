@@ -20,17 +20,17 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 if [ -f "$BUN_INSTALL"/bin/bun ]; then
   echo "------> Bun $(bun --version) is already installed"
 else
-  BUN_VERSION="canary"
-
-  if [ -f "$BUILD_DIR"/.bun-version ]; then
-    BUN_VERSION=$(cat "$BUILD_DIR"/.bun-version)
-  fi
-
-  echo "------> Bun Version to install: $BUN_VERSION"
-
-  # NOTE: For now support latest version only
-  curl -fsSL https://bun.sh/install | bash -s "$BUN_VERSION"
+  curl -fsSL https://bun.sh/install | bash
 fi
+
+BUN_VERSION="--canary"
+
+if [ -f "$BUILD_DIR"/.bun-version ]; then
+  BUN_VERSION=$(cat "$BUILD_DIR"/.bun-version)
+fi
+
+bun upgrade "$BUN_VERSION"
+
 
 cat <<EOT >"$BUILD_DIR"/.bunfig.toml
 [install.cache]
