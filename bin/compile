@@ -13,6 +13,7 @@ LP_DIR=$(
   pwd
 )
 
+
 # Install bun
 export BUN_INSTALL=$CACHE_DIR/bun
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -21,12 +22,6 @@ if [ -f "$BUN_INSTALL"/bin/bun ]; then
   echo "------> Bun $(bun --version) is already installed"
 else
   curl -fsSL https://bun.sh/install | bash
-fi
-
-BUN_VERSION="--canary"
-
-if [ -f "$BUILD_DIR"/.bun-version ]; then
-  BUN_VERSION=$(cat "$BUILD_DIR"/.bun-version)
 fi
 
 bun upgrade "$BUN_VERSION"
@@ -40,7 +35,7 @@ EOT
 
 # download dependencies
 cd "$BUILD_DIR"
-bun install
+bun install "$BUN_INSTALL_OPTS"
 
 # give environment to later buildpacks
 export | grep -E -e ' (PATH)=' >"$LP_DIR/export"
